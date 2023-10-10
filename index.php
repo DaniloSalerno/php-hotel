@@ -7,9 +7,8 @@
 Bonus:
 ✔ Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
 
-Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
-
-NOTA: deve essere possibile utilizzare entrambi i filtri contemporaneamente (es. ottenere una lista con hotel che dispongono di parcheggio e che hanno un voto di tre stelle o superiore) Se non viene specificato nessun filtro, visualizzare come in precedenza tutti gli hotel. */
+✔ Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
+*/
 
 $hotels = [
 
@@ -51,7 +50,7 @@ $hotels = [
 
 ];
 //var_dump($_GET['parking'])
-var_dump($_GET['vote'])
+//var_dump($_GET['vote'])
 
 ?>
 
@@ -92,19 +91,23 @@ var_dump($_GET['vote'])
                     <tr>
                         <?php if (($parking_filter == null || $parking_filter == 'all') || ($parking_filter == 'yes' && $hotel['parking']) || ($parking_filter == 'no' && !$hotel['parking'])) : ?>
 
-                            <th scope="row"><?php echo $key + 1 ?></th>
-                            <td><?php echo $hotel['name'] ?></td>
-                            <td><?php echo $hotel['description'] ?></td>
-                            <td>
-                                <?php if ($hotel['parking'] == 1) {
-                                    echo 'Available';
-                                } else {
-                                    echo 'Not available';
-                                }
-                                ?>
-                            </td>
-                            <td><?php echo $hotel['vote'] . '/5' ?></td>
-                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+                            <?php if (($vote_filter == null || $vote_filter == 'all') || ($vote_filter == '1' && $hotel['vote'] > 0) || ($vote_filter == '2' && $hotel['vote'] > 1) || ($vote_filter == '3' && $hotel['vote'] > 2) || ($vote_filter == '4' && $hotel['vote'] > 3) || ($vote_filter == '5' && $hotel['vote'] > 4)) : ?>
+
+
+                                <th scope="row"><?php echo $key + 1 ?></th>
+                                <td><?php echo $hotel['name'] ?></td>
+                                <td><?php echo $hotel['description'] ?></td>
+                                <td>
+                                    <?php if ($hotel['parking'] == 1) {
+                                        echo 'Available';
+                                    } else {
+                                        echo 'Not available';
+                                    }
+                                    ?>
+                                </td>
+                                <td><?php echo $hotel['vote'] . '/5' ?></td>
+                                <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+                            <?php endif; ?>
 
                         <?php endif; ?>
 
