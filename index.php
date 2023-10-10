@@ -2,10 +2,10 @@
 /*
 ✔ Stampare tutti i nostri hotel con tutti i dati disponibili.
 
-Iniziate in modo graduale. Prima stampate in pagina i dati, senza preoccuparvi dello stile. Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
+✔ Iniziate in modo graduale. Prima stampate in pagina i dati, senza preoccuparvi dello stile. Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
 
 Bonus:
-Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
+✔ Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
 
 Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto (es. inserisco 3 ed ottengo tutti gli hotel che hanno un voto di tre stelle o superiore)
 
@@ -50,6 +50,7 @@ $hotels = [
     ],
 
 ];
+//var_dump($_GET['parking'])
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +66,9 @@ $hotels = [
 <body>
 
     <div class="container mt-5">
+
         <table class="table table-striped table-hover border">
+
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -76,28 +79,94 @@ $hotels = [
                     <th scope="col">Distance to center</th>
                 </tr>
             </thead>
+
             <tbody>
+
                 <?php foreach ($hotels as $key => $hotel) : ?>
+
+                    <?php $have_parking = $_GET['parking'] ?>
+
                     <tr>
-                        <th scope="row"><?php echo $key + 1 ?></th>
-                        <td><?php echo $hotel['name'] ?></td>
-                        <td><?php echo $hotel['description'] ?></td>
-                        <td>
-                            <?php if ($hotel['parking'] == 1) {
-                                echo 'Available';
-                            } else {
-                                echo 'Not available';
-                            }
-                            ?>
-                        </td>
-                        <td><?php echo $hotel['vote'] . '/5' ?></td>
-                        <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+                        <?php if ($have_parking == null || $have_parking == 'all') : ?>
+
+                            <th scope="row"><?php echo $key + 1 ?></th>
+                            <td><?php echo $hotel['name'] ?></td>
+                            <td><?php echo $hotel['description'] ?></td>
+                            <td>
+                                <?php if ($hotel['parking'] == 1) {
+                                    echo 'Available';
+                                } else {
+                                    echo 'Not available';
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $hotel['vote'] . '/5' ?></td>
+                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+
+                        <?php elseif ($have_parking == 'yes' && $hotel['parking']) : ?>
+
+                            <th scope="row"><?php echo $key + 1 ?></th>
+                            <td><?php echo $hotel['name'] ?></td>
+                            <td><?php echo $hotel['description'] ?></td>
+                            <td>
+                                <?php if ($hotel['parking'] == 1) {
+                                    echo 'Available';
+                                } else {
+                                    echo 'Not available';
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $hotel['vote'] . '/5' ?></td>
+                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+
+                        <?php elseif ($have_parking == 'no' && !$hotel['parking']) : ?>
+
+                            <th scope="row"><?php echo $key + 1 ?></th>
+                            <td><?php echo $hotel['name'] ?></td>
+                            <td><?php echo $hotel['description'] ?></td>
+                            <td>
+                                <?php if ($hotel['parking'] == 1) {
+                                    echo 'Available';
+                                } else {
+                                    echo 'Not available';
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $hotel['vote'] . '/5' ?></td>
+                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+
+                        <?php endif; ?>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>
 
         </table>
+        <!-- /.table -->
+
+        <form method="GET" class="mt-5">
+
+            <div class="d-flex fs-4 gap-4 justify-content-center">
+                <div>
+                    Parking:
+                </div>
+
+                <select name="parking" id="parking" class="form-select w-25">
+                    <option value="all" selected>All</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+
+
+        </form>
     </div>
+    <!-- /.container -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
