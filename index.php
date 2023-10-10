@@ -80,6 +80,7 @@ $hotels = [
                     <th scope="col">Distance to center</th>
                 </tr>
             </thead>
+            <!-- /thead -->
 
             <tbody>
 
@@ -89,6 +90,7 @@ $hotels = [
                     <?php $vote_filter = $_GET['vote'] ?>
 
                     <tr>
+
                         <?php if (($parking_filter == null || $parking_filter == 'all') || ($parking_filter == 'yes' && $hotel['parking']) || ($parking_filter == 'no' && !$hotel['parking'])) : ?>
 
                             <?php if (($vote_filter == null || $vote_filter == 'all') || ($vote_filter == '1' && $hotel['vote'] > 0) || ($vote_filter == '2' && $hotel['vote'] > 1) || ($vote_filter == '3' && $hotel['vote'] > 2) || ($vote_filter == '4' && $hotel['vote'] > 3) || ($vote_filter == '5' && $hotel['vote'] > 4)) : ?>
@@ -98,22 +100,24 @@ $hotels = [
                                 <td><?php echo $hotel['name'] ?></td>
                                 <td><?php echo $hotel['description'] ?></td>
                                 <td>
-                                    <?php if ($hotel['parking'] == 1) {
-                                        echo 'Available';
-                                    } else {
-                                        echo 'Not available';
-                                    }
-                                    ?>
+                                    <?php echo ($hotel['parking'] == 1) ? 'Available' : 'Not available' ?>
                                 </td>
                                 <td><?php echo $hotel['vote'] . '/5' ?></td>
                                 <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+
                             <?php endif; ?>
+                            <!-- /endif fot vote_filter -->
 
                         <?php endif; ?>
+                        <!-- /endif fot parking_filter -->
 
                     </tr>
+                    <!-- /tr -->
+
                 <?php endforeach; ?>
+
             </tbody>
+            <!-- /tbody -->
 
         </table>
         <!-- /.table -->
