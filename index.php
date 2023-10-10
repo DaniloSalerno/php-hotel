@@ -1,6 +1,6 @@
 <?php
 /*
-Stampare tutti i nostri hotel con tutti i dati disponibili.
+✔ Stampare tutti i nostri hotel con tutti i dati disponibili.
 
 Iniziate in modo graduale. Prima stampate in pagina i dati, senza preoccuparvi dello stile. Dopo aggiungete Bootstrap e mostrate le informazioni con una tabella.
 
@@ -62,6 +62,23 @@ $hotels = [
 </head>
 
 <body>
+
+    <ul>
+        <?php foreach ($hotels as $hotel) : ?>
+            <li>
+
+                <h2>
+                    <?php echo $hotel['name'] ?>
+                </h2>
+
+                <div>
+                    <?php echo $hotel['name'] . ' - ' . $hotel['description'] . ' - ' . $hotel['parking'] . ' - ' . $hotel['vote'] . '/5' . ' - ' . $hotel['distance_to_center'] . 'Km'; ?>
+                </div>
+
+            </li>
+        <?php endforeach; ?>
+    </ul>
+
 
 </body>
 
