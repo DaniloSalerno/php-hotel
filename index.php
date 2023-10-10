@@ -50,7 +50,11 @@ $hotels = [
 
 ];
 //var_dump($_GET['parking'])
-//var_dump($_GET['vote'])
+var_dump($_GET['vote']);
+
+$votes = ['all', 1, 2, 3, 4, 5];
+$parking_options = ['all', 'yes', 'no'];
+
 
 ?>
 
@@ -130,9 +134,20 @@ $hotels = [
                 </div>
 
                 <select name="parking" id="parking" class="form-select flex-grow-0">
-                    <option value="all" selected>All</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+
+                    <?php foreach ($parking_options as $park) : ?>
+
+                        <?php if ($park == $_GET['parking']) : ?>
+
+                            <option selected value="<?php echo $park ?>"><?php echo $park ?></option>
+
+                        <?php else : ?>
+
+                            <option value="<?php echo $park ?>"><?php echo $park ?></option>
+
+                        <? endif ?>
+                    <?php endforeach ?>
+
                 </select>
 
             </div>
@@ -143,12 +158,21 @@ $hotels = [
                 </div>
 
                 <select name="vote" id="vote" class="form-select flex-grow-0">
-                    <option value="all" selected>All</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                    <option value="4">4+</option>
-                    <option value="5">5</option>
+
+                    <?php foreach ($votes as $vote) : ?>
+
+                        <?php if ($vote == $_GET['vote']) : ?>
+
+                            <option selected value="<?php echo $vote ?>"><?php echo $vote ?></option>
+
+                        <?php else : ?>
+
+                            <option value="<?php echo $vote ?>"><?php echo $vote ?></option>
+
+                        <? endif ?>
+                    <?php endforeach ?>
+
+
                 </select>
 
             </div>
