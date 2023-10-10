@@ -49,12 +49,12 @@ $hotels = [
     ],
 
 ];
-//var_dump($_GET['parking'])
-var_dump($_GET['vote']);
+
+//var_dump($_GET['parking']);
+//var_dump($_GET['vote']);
 
 $votes = ['all', 1, 2, 3, 4, 5];
 $parking_options = ['all', 'yes', 'no'];
-
 
 ?>
 
@@ -129,6 +129,7 @@ $parking_options = ['all', 'yes', 'no'];
         <form method="GET" class="mt-5 d-flex justify-content-center gap-5">
 
             <div class="d-flex fs-4 gap-4">
+
                 <div>
                     Parking:
                 </div>
@@ -153,6 +154,7 @@ $parking_options = ['all', 'yes', 'no'];
             </div>
 
             <div class="d-flex fs-4 gap-4">
+
                 <div>
                     Vote:
                 </div>
