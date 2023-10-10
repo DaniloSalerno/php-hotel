@@ -51,6 +51,8 @@ $hotels = [
 
 ];
 //var_dump($_GET['parking'])
+var_dump($_GET['vote'])
+
 ?>
 
 <!DOCTYPE html>
@@ -84,42 +86,11 @@ $hotels = [
 
                 <?php foreach ($hotels as $key => $hotel) : ?>
 
-                    <?php $have_parking = $_GET['parking'] ?>
+                    <?php $parking_filter = $_GET['parking'] ?>
+                    <?php $vote_filter = $_GET['vote'] ?>
 
                     <tr>
-                        <?php if ($have_parking == null || $have_parking == 'all') : ?>
-
-                            <th scope="row"><?php echo $key + 1 ?></th>
-                            <td><?php echo $hotel['name'] ?></td>
-                            <td><?php echo $hotel['description'] ?></td>
-                            <td>
-                                <?php if ($hotel['parking'] == 1) {
-                                    echo 'Available';
-                                } else {
-                                    echo 'Not available';
-                                }
-                                ?>
-                            </td>
-                            <td><?php echo $hotel['vote'] . '/5' ?></td>
-                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
-
-                        <?php elseif ($have_parking == 'yes' && $hotel['parking']) : ?>
-
-                            <th scope="row"><?php echo $key + 1 ?></th>
-                            <td><?php echo $hotel['name'] ?></td>
-                            <td><?php echo $hotel['description'] ?></td>
-                            <td>
-                                <?php if ($hotel['parking'] == 1) {
-                                    echo 'Available';
-                                } else {
-                                    echo 'Not available';
-                                }
-                                ?>
-                            </td>
-                            <td><?php echo $hotel['vote'] . '/5' ?></td>
-                            <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
-
-                        <?php elseif ($have_parking == 'no' && !$hotel['parking']) : ?>
+                        <?php if (($parking_filter == null || $parking_filter == 'all') || ($parking_filter == 'yes' && $hotel['parking']) || ($parking_filter == 'no' && !$hotel['parking'])) : ?>
 
                             <th scope="row"><?php echo $key + 1 ?></th>
                             <td><?php echo $hotel['name'] ?></td>
@@ -144,14 +115,14 @@ $hotels = [
         </table>
         <!-- /.table -->
 
-        <form method="GET" class="mt-5">
+        <form method="GET" class="mt-5 d-flex justify-content-center gap-5">
 
-            <div class="d-flex fs-4 gap-4 justify-content-center">
+            <div class="d-flex fs-4 gap-4">
                 <div>
                     Parking:
                 </div>
 
-                <select name="parking" id="parking" class="form-select w-25">
+                <select name="parking" id="parking" class="form-select flex-grow-0">
                     <option value="all" selected>All</option>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -159,7 +130,23 @@ $hotels = [
 
             </div>
 
-            <div class="d-flex justify-content-center mt-4">
+            <div class="d-flex fs-4 gap-4">
+                <div>
+                    Vote:
+                </div>
+
+                <select name="vote" id="vote" class="form-select flex-grow-0">
+                    <option value="all" selected>All</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5</option>
+                </select>
+
+            </div>
+
+            <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
 
