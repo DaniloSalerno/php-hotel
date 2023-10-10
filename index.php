@@ -59,26 +59,47 @@ $hotels = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
 
-    <ul>
-        <?php foreach ($hotels as $hotel) : ?>
-            <li>
+    <div class="container mt-5">
+        <table class="table table-striped table-hover border">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Parking</th>
+                    <th scope="col">Vote</th>
+                    <th scope="col">Distance to center</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $key => $hotel) : ?>
+                    <tr>
+                        <th scope="row"><?php echo $key + 1 ?></th>
+                        <td><?php echo $hotel['name'] ?></td>
+                        <td><?php echo $hotel['description'] ?></td>
+                        <td>
+                            <?php if ($hotel['parking'] == 1) {
+                                echo 'Available';
+                            } else {
+                                echo 'Not available';
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $hotel['vote'] . '/5' ?></td>
+                        <td><?php echo $hotel['distance_to_center'] . 'Km' ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
 
-                <h2>
-                    <?php echo $hotel['name'] ?>
-                </h2>
+        </table>
+    </div>
 
-                <div>
-                    <?php echo $hotel['name'] . ' - ' . $hotel['description'] . ' - ' . $hotel['parking'] . ' - ' . $hotel['vote'] . '/5' . ' - ' . $hotel['distance_to_center'] . 'Km'; ?>
-                </div>
-
-            </li>
-        <?php endforeach; ?>
-    </ul>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 
